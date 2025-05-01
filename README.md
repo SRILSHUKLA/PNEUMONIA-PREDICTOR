@@ -1,6 +1,7 @@
 # Hybrid CNN-Transformer for Multi-Class Classification of Pneumonia, COVID-19, and Normal Chest X-rays
 
-![Model Architecture](assets/model_architecture.png) *(Optional: Add visualization if available)*
+![custom-cnn-backbone](https://github.com/user-attachments/assets/237a4ddf-9835-45fa-9745-55fcac63f9f8)
+
 
 ## 📌 Overview
 This repository contains the implementation of a hybrid CNN-Transformer architecture for classifying chest X-rays into three categories: **Normal**, **Pneumonia**, and **COVID-19**. The model combines convolutional neural networks' local feature extraction capabilities with transformers' global context modeling, achieving **96.33% F1-score** on the test set.
