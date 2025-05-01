@@ -1,0 +1,7 @@
+split_data/
+.ipynb_checkpoints/
+custom-cnn-backbone/best_custom_cnn_transformer.pth
+efficient-net-models/best_model_hybrid_architecture.pth
+efficient-net-models/best_model_efficientnet_only_CNN.pth
+resnet-models/best_model_resnet50_gradaccum.pth
+convnext-models/best_convnext_base_model.pth
