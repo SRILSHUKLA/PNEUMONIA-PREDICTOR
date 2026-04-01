@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chest X-Ray Federated Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <section class="card">
+      <h1>Chest X-Ray Federated Predictor</h1>
+      <p>Upload one chest X-ray. The app runs ConvNeXt, ResNet50+Transformer, and EfficientNet-B5, then returns majority-vote class.</p>
+
+      <form method="post" enctype="multipart/form-data" class="upload-form">
+        <input type="file" name="xray" accept="image/png,image/jpeg,image/webp" required>
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      {% if result %}
+        <section class="result">
+          <h2>Final Prediction: <span>{{ result.final_class|upper }}</span></h2>
+          <p>Ensemble Confidence: {{ '%.2f'|format(result.final_confidence * 100) }}%</p>
+
+          <h3>Model Votes</h3>
+          <ul>
+            {% for cls, count in result.votes.items() %}
+              <li>{{ cls }}: {{ count }}</li>
+            {% endfor %}
+          </ul>
+
+          <h3>Per-Model Predictions</h3>
+          <ul>
+            {% for row in result.per_model %}
+              <li>{{ row.model }} -> {{ row.predicted_class }} ({{ '%.2f'|format(row.confidence * 100) }}%)</li>
+            {% endfor %}
+          </ul>
+
+          <h3>Average Class Probabilities</h3>
+          <ul>
+            {% for cls, prob in result.class_probabilities.items() %}
+              <li>{{ cls }}: {{ '%.2f'|format(prob * 100) }}%</li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>
